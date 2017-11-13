@@ -7,7 +7,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class SigninComponent implements OnInit {
-
+  userName:string;
+  password:string;
   constructor() { }
 
   ngOnInit() {
