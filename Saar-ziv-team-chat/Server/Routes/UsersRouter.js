@@ -10,12 +10,13 @@ router.get("/",function (req,res) {
   res.send(ctrl.userDb);
 });
 router.post("/",function (req,res) {
-  console.log("hi from server");
-  let responseObj =  true;
-  if(!(ctrl.doesUserExists(req.body.name,req.body.password))){
-    responseObj = false;
+  let user = ctrl.doesUserExists(req.body.name,req.body.password);
+  let responseObj = false;
+  if(user !== undefined) {
+    responseObj = true;
+    req.session.user = user;
   }
   res.send(responseObj);
-});
+  });
 module.exports = router;
 
