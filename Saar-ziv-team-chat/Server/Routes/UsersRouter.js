@@ -10,7 +10,12 @@ router.get("/",function (req,res) {
   res.send(ctrl.userDb);
 });
 router.post("/",function (req,res) {
-  (!ctrl.doesUserExists(req.body.name,req.body.password))?res.send("user doesnt exist"):res.send("user exist !");
-})
+  console.log("hi from server");
+  let responseObj =  true;
+  if(!(ctrl.doesUserExists(req.body.name,req.body.password))){
+    responseObj = false;
+  }
+  res.send(responseObj);
+});
 module.exports = router;
 
