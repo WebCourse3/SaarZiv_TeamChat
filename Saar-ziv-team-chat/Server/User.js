@@ -3,6 +3,8 @@ class User{
     this.id = Id;
     this.name= Name;
     this.password = Password;
+
+
   }
 }
 module.exports.usr = User;

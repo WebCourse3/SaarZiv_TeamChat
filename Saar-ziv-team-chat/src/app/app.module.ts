@@ -8,8 +8,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SigninComponent } from './signin/signin.component';
 import {UsersService} from './users.service';
+import {AuthenticationService} from "./authentication.service";
 import {HttpClientModule} from '@angular/common/http';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import {JwtHelper} from "angular2-jwt";
+import {AuthGuardService} from "./authguard.service";
+
 
 @NgModule({
   declarations: [
@@ -25,7 +29,7 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UsersService,HttpClient],
+  providers: [UsersService,HttpClient,AuthenticationService,JwtHelper,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

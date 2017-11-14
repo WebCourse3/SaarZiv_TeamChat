@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {UsersService} from '../users.service';
 import {Router } from '@angular/router';
+import {AuthenticationService} from "../authentication.service";
 
 
 
@@ -15,19 +16,9 @@ export class SigninComponent implements OnInit {
   userName:string;
   password:string;
   //create a field for a logged on user
-  constructor(private userService:UsersService,private router:Router) { }
+  constructor(private userService:UsersService,private router:Router,private authenticationService:AuthenticationService) { }
   logIn():void{
-    this.userService.logOn(this.userName,this.password).
-    subscribe((respond) => {
-      if(respond){
-        alert("Hello "+this.userName +" !");
-        this.router.navigate(["/chatroom"]);
-
-
-      }else{
-        alert("user does`nt exist")
-      }
-    });
+    this.authenticationService.logIn(this.userName,this.password);
   }
 
 
