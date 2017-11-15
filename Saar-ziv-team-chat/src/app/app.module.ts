@@ -9,10 +9,12 @@ import { AppRoutingModule } from './/app-routing.module';
 import { SigninComponent } from './signin/signin.component';
 import {UsersService} from './users.service';
 import {AuthenticationService} from "./authentication.service";
+import {ChatService} from "./chat.service";
 import {HttpClientModule} from '@angular/common/http';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import {JwtHelper} from "angular2-jwt";
 import {AuthGuardService} from "./authguard.service";
+
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import {AuthGuardService} from "./authguard.service";
     FormsModule,
     HttpClientModule
   ],
-  providers: [UsersService,HttpClient,AuthenticationService,JwtHelper,AuthGuardService],
+  providers: [UsersService,HttpClient,AuthenticationService,JwtHelper,AuthGuardService,ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

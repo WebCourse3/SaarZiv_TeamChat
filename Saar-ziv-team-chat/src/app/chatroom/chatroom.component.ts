@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import {ChatService} from "../chat.service";
 @Component({
   selector: 'app-chatroom',
   templateUrl: './chatroom.component.html',
@@ -7,10 +7,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ChatroomComponent implements OnInit {
+  chatRoom:string;
+  message:string;
+  constructor(private chatService:ChatService) { }
 
-  constructor() { }
-
+  sendMessage():void{
+    this.chatService.sendMessage(this.message);
+    this.message='';
+  }
   ngOnInit() {
+
   }
 
 }

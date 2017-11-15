@@ -1,3 +1,25 @@
-<p>
-  chatroom works!
-</p>
+<html>
+<head>
+<h2>Welcome to {{chatRoom}} chat room !</h2>
+  <!--<link rel="stylesheet" href="../css/bootstrap.css">!-->
+</head>
+<body>
+<div class="col-xs-10 col-xs-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading">Chat</div>
+    <div class="panel-body">
+      <ul id="chat_Conversation.">
+        <div class="panel-body">
+          <li>Panel content</li>
+        </div>
+      </ul>
+    </div>
+
+  </div>
+    <input [(ngModel)]="message" type="text" class="col-xs-11"/>
+    <button (click)="sendMessage()">Send</button>
+</div>
+
+</body>
+
+</html>
