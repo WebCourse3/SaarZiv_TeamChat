@@ -16,7 +16,7 @@ export class ChatroomComponent implements OnInit {
     this.message='';
   }
   ngOnInit() {
-
+    this.chatService.connectIo();
   }
 
 }

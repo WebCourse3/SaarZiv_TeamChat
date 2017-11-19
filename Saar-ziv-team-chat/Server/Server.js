@@ -5,8 +5,9 @@ const UsersRouter = require("./Routes/UsersRouter");
 const staticPath = "C:\\Users\\user\\WebstormProjects\\SaarZiv_TeamChat\\Saar-ziv-team-chat\\dist";
 const bodyParser = require('body-parser');
 const cors = require("cors");
-var session = require('client-sessions');
-
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+let messagesDb = require('./messagesDb').messagesDb;
 
 app.use(express.static(staticPath));
 app.use(cors());
@@ -14,22 +15,26 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 }));
-app.use(session({
-  cookieName: 'session',
-  secret: 'random_string_goes_here',
-  duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,
-}));
+
 app.use("/Users",UsersRouter);
 
+io.on('connection',function (socket) {
+  console.log('a user connected.');
+  socket.on('add-message',(msgObj) => {
+    messagesDb.push(msgObj);
+    console.log(messagesDb);
 
 
+  });
+});
 
-app.get('/*', function (req, res) {
+
+app.get('/', function (req, res) {
   res.sendFile(path.join(staticPath,'index.html'));
 });
 
 
-app.listen(3000,function() {
+
+http.listen(3000,function() {
   console.log('Server started on port 3000');
 });

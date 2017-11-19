@@ -14,14 +14,11 @@ router.post("/",function (req,res) {
   let user = ctrl.doesUserExists(req.body.name,req.body.password);
   let responseObj;
   if(user !== undefined) {
-    responseObj = {
-      _id: user._id,
-      username: user.username,
-      token: jwt.sign({ sub: user._id }, "shhhhhh")
-    };
-    req.session.user = user;
+    responseObj =
+      {_id: user._id, token: jwt.sign({sub: user._id}, "shhhhhh"),userName:user.name};
   }
   res.send(responseObj);
   });
+
 module.exports = router;
 
