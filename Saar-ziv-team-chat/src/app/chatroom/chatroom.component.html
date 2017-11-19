@@ -8,9 +8,9 @@
   <div class="panel panel-default">
     <div class="panel-heading">Chat</div>
     <div class="panel-body">
-      <ul id="chat_Conversation.">
+      <ul id="chat_Conversation" *ngFor="let messageObj of messages">
         <div class="panel-body">
-          <li>Panel content</li>
+          <label>{{messageObj.userName}} :<li>{{messageObj.message}}</li></label>
         </div>
       </ul>
     </div>

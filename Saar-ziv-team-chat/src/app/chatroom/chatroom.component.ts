@@ -9,14 +9,18 @@ import {ChatService} from "../chat.service";
 export class ChatroomComponent implements OnInit {
   chatRoom:string;
   message:string;
+  messages:any;
   constructor(private chatService:ChatService) { }
 
   sendMessage():void{
     this.chatService.sendMessage(this.message);
     this.message='';
   }
+  getMessages():void{
+    this.chatService.getMessages().subscribe((Messages) => this.messages = Messages);
+  }
   ngOnInit() {
-    this.chatService.connectIo();
+    this.getMessages();
   }
 
 }

@@ -23,14 +23,17 @@ io.on('connection',function (socket) {
   socket.on('add-message',(msgObj) => {
     messagesDb.push(msgObj);
     console.log(messagesDb);
-
-
   });
+
 });
 
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(staticPath,'index.html'));
+});
+
+app.get('/messages', function (req, res) {
+  res.send(messagesDb);
 });
 
 
