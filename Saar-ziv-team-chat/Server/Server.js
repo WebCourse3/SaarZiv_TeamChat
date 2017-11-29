@@ -20,10 +20,17 @@ app.use("/Users",UsersRouter);
 
 io.on('connection',function (socket) {
   console.log('a user connected.');
+  //io.emit('some event', { for: 'everyone' });
+  /*socket.on("get-messages",function (messagesDb) {
+    io.emit("get-messages",messagesDb);
+  });*/
   socket.on('add-message',(msgObj) => {
     messagesDb.push(msgObj);
-    console.log(messagesDb);
   });
+
+
+  //socket.emit("get-last-message",messagesDb[(messagesDb.length -1)])
+
 
 });
 
@@ -34,6 +41,9 @@ app.get('/', function (req, res) {
 
 app.get('/messages', function (req, res) {
   res.send(messagesDb);
+});
+app.get('/lastMessage', function (req, res) {
+  res.send(messagesDb[(messagesDb.length -1)]);
 });
 
 
