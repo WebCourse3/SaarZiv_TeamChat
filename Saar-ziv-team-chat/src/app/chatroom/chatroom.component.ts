@@ -11,20 +11,18 @@ export class ChatroomComponent implements OnInit {
   chatRoom:string;
   message:string;
   messages:any
-  /*private url = 'http://localhost:3000';
-  private socket = io(this.url);*/
+  private url = 'http://localhost:3000';
+  private socket = io(this.url);
   constructor(private chatService:ChatService) { }
 
   sendMessage():void{
-    this.getLastMessage();
     this.chatService.sendMessage(this.message);
     this.message='';
-
   }
   getMessages():void{
     this.chatService.getMessages().subscribe((data) => this.messages = data );
   }
-  getLastMessage(){
+  listenRecentMessage(){
     this.chatService.getLastMessage().subscribe((lastMsg)=>{this.messages.push(lastMsg);console.log(this.messages)});
   }
   /*getMessages():void{
@@ -39,6 +37,8 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit() {
     this.getMessages();
+    this.listenRecentMessage();
+
   }
 
 }

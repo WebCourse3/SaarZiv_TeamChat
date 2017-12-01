@@ -27,6 +27,7 @@ export class ChatService  {
     loggedInUser = JSON.parse(sessionStorage.getItem("currentUser"));
     let msgObj = {userName:loggedInUser.userName,message:message};
     this.socket.emit('add-message',msgObj);
+    return this.getLastMessage();
   }
   getLastMessage(){
     let observable = Observable.create((obs) => {

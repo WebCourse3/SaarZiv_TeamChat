@@ -22,11 +22,13 @@ io.on('connection',function (socket) {
   console.log('a user connected.');
 
   socket.emit("getMessages",messagesDb);
+
   socket.on("add-message",(lastMsgObj) => {
     lastMessageObj = lastMsgObj;
     messagesDb.push(lastMsgObj);
-    socket.broadcast.emit("lastMessage",lastMessageObj);
+    io.sockets.emit("lastMessage",lastMessageObj);
   });
+
 
 });
 
