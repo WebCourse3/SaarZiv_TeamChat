@@ -4,6 +4,7 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import * as io from 'socket.io-client';
+import {observable} from "rxjs/symbol/observable";
 interface Message {
   userName:string;
   message:string;
@@ -12,30 +13,39 @@ interface Message {
 export class ChatService  {
 
   private url = 'http://localhost:3000';
-  private socket ;
-  //test:any;
+  private socket = io(this.url);
+  messages:any;
   constructor(private http:HttpClient){}
-  /*getMessages():string{
-    this.socket = io(this.url);
-    this.socket.on('some event',(data) => this.test = data);
-    return this.test;
-  }*/
-  getMessages():Observable<Message[]>{
-    this.socket = io(this.url);
-    return this.http.get<Message[]>(this.url+"/messages");
+  getMessages():any{
+    let observable = new Observable(observer =>{
+      this.socket.on('getMessages',(messages) => {observer.next(messages)});
+    });
+    return observable;
   }
-  sendMessage(message) :void{
+  sendMessage(message){
     let  loggedInUser;
     loggedInUser = JSON.parse(sessionStorage.getItem("currentUser"));
     let msgObj = {userName:loggedInUser.userName,message:message};
     this.socket.emit('add-message',msgObj);
   }
+  getLastMessage(){
+    let observable = Observable.create((obs) => {
+      this.socket.on("lastMessage",(lastMessage)=>{obs.next(lastMessage)});
+    });
+    return observable;
+  }
+
+
+  /*getMessages():Observable<Message[]>{
+    this.socket = io(this.url);
+    return this.http.get<Message[]>(this.url+"/messages");
+  }*/
   /*getLastMessage():Message{
     return this.socket.on('get-last-message',(lastMessage) => lastMessage);
   }*/
-  getLastMessage():Observable<Message>{
+  /*getLastMessage():Observable<Message>{
     return this.http.get<Message>(this.url+"/lastMessage");
-  }
+  }*/
 
 
 
