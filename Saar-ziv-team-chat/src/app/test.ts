@@ -1,0 +1,3 @@
+let x:string = undefined;
+x += 5;
+console.log(x);
